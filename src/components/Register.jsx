@@ -9,17 +9,17 @@ const Register = () => {
         const name = e.target.name.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
-        console.log(name, email, password);
+        // console.log(name, email, password);
 
         createUser(email, password)
             .then(result => {
-                console.log(result.user);
+                // console.log(result.user);
                 setUser(result.user);
             })
             .catch(error => {
                 console.error(error);
             });
-        console.log(user);
+        // console.log(user);
 
     }
 

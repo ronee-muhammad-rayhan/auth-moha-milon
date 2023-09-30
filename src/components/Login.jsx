@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from './providers/AuthProvider';
 
 const Login = () => {
+    const { signInUser, setUser, user } = useContext(AuthContext);
     const handleLogin = e => {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
         console.log(email, password);
+
+        signInUser(email, password)
+            .then(userCredentials => {
+                setUser(userCredentials.user);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
     }
     return (
         <div className="hero min-h-screen bg-base-200">
@@ -37,6 +48,7 @@ const Login = () => {
                             </div>
                         </form>
                         <p>New here? Please <Link to="/register"><button className="btn btn-link">Register</button></Link></p>
+                        {user?.email}
                     </div>
                 </div>
             </div>
