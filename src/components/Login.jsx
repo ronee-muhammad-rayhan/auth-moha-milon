@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from './providers/AuthProvider';
 
 const Login = () => {
-    const { signInUser, setUser, user } = useContext(AuthContext);
+    const { signInUser, setUser, user, signInWithGoogle } = useContext(AuthContext);
     const handleLogin = e => {
         e.preventDefault();
         const email = e.target.email.value;
@@ -13,11 +13,20 @@ const Login = () => {
         signInUser(email, password)
             .then(userCredentials => {
                 setUser(userCredentials.user);
+                console.log(userCredentials.user);
             })
             .catch(error => {
                 console.error(error);
             });
 
+    }
+
+    const handleGoogleSignIn = () => {
+        signInWithGoogle()
+            .then(result => {
+                console.log(result.user);
+                setUser(result.user);
+            }).catch(error => console.log(error.code));
     }
     return (
         <div className="hero min-h-screen bg-base-200">
@@ -48,7 +57,9 @@ const Login = () => {
                             </div>
                         </form>
                         <p>New here? Please <Link to="/register"><button className="btn btn-link">Register</button></Link></p>
-                        {user?.email}
+                        {user?.displayName}
+                        <img src={user?.photoURL} alt="" />
+                        <p>or You can sign in with <button onClick={handleGoogleSignIn} className="btn btn-ghost">Google</button></p>
                     </div>
                 </div>
             </div>
