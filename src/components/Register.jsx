@@ -1,14 +1,28 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import AuthProvider, { AuthContext } from './providers/AuthProvider';
 
 const Register = () => {
+    const { createUser, user, setUser } = useContext(AuthContext);
     const handleRegister = e => {
         e.preventDefault();
         const name = e.target.name.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
         console.log(name, email, password);
+
+        createUser(email, password)
+            .then(result => {
+                console.log(result.user);
+                setUser(result.user);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        console.log(user);
+
     }
+
     return (
         <div className="hero min-h-screen bg-base-200">
             <div className="hero-content flex-col">
@@ -44,6 +58,7 @@ const Register = () => {
                             </div>
                         </form>
                         <p>Already have account? Please <Link to="/login"><button className="btn btn-link">Login</button></Link></p>
+                        {user.email}
                     </div>
                 </div>
             </div>
