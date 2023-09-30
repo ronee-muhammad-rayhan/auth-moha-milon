@@ -16,7 +16,9 @@ const Navbar = () => {
         <li><NavLink to={'/'}>Home</NavLink></li>
         <li><NavLink to="/login">Login</NavLink></li>
         <li><NavLink to='/register'>Register</NavLink></li>
+        {/* orders menu is public but its contents are private in main.jsx route */}
         <li><NavLink to='/orders'>Orders</NavLink></li>
+        {/* Profile and Dashboard menus are private as well */}
         {user && <>
             <li><NavLink to='/profile'>Profile</NavLink></li>
             <li><NavLink to='/dashboard'>Dashboard</NavLink></li>
