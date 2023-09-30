@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import AuthProvider, { AuthContext } from './providers/AuthProvider';
+import AuthProvider, { AuthContext } from '../providers/AuthProvider';
 
 const Register = () => {
     const { createUser, user, setUser } = useContext(AuthContext);
@@ -58,7 +58,7 @@ const Register = () => {
                             </div>
                         </form>
                         <p>Already have account? Please <Link to="/login"><button className="btn btn-link">Login</button></Link></p>
-                        {user.email}
+                        {user?.email}
                     </div>
                 </div>
             </div>
